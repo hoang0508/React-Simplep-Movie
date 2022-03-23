@@ -56,7 +56,12 @@ const BannerItem = ({ item }) => {
             Adventure
           </span>
         </div>
-        <Button onClick={(e) => hanldeClickNavigate(e)}>Watch Now</Button>
+        <Button
+          onClick={(e) => hanldeClickNavigate(e)}
+          className="inline-block"
+        >
+          Watch Now
+        </Button>
         {/* <button className="py-3 px-6 rounded-lg bg-primary text-white font-medium">
           Watch Now
         </button> */}

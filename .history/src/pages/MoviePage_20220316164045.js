@@ -3,21 +3,14 @@ import useSWR from "swr";
 import MovieCart from "../components/movie/MovieCart";
 import { apiKey, fetcher } from "../config";
 import useDebounce from "../hooks/useDebounce";
-import ReactPaginate from "react-paginate";
-const itemsPerPage = 20;
-const MoviePage = () => {
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
 
-  // Page
-  const [nextpage, setNextPage] = useState(1);
-  // input Filter
+const MoviePage = () => {
   const [filter, setFilter] = useState("");
   // useDebound
   const filterDebounce = useDebounce(filter, 500);
   // url
   const [url, setUrl] = useState(
-    `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d&page=${nextpage}`
+    `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d`
   );
   // func Onchange
   const handleFilterChange = (e) => {
@@ -31,30 +24,15 @@ const MoviePage = () => {
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}&page=${nextpage}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}`
       );
     } else {
       setUrl(
-        `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d&page=${nextpage}`
+        `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d`
       );
     }
-  }, [filterDebounce, nextpage]);
-  // Kiểm tra có data hay không ?
-  // if (!data) return null;
+  }, [filterDebounce]);
   const movies = data?.results || [];
-  // useFfetch Phân trang pagination
-  useEffect(() => {
-    if (!data || !data.total_pages) return null;
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
-  }, [data, itemOffset]);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_results;
-    setItemOffset(newOffset);
-    // setNextPage
-    setNextPage(event.selected + 1);
-  };
   return (
     <>
       <div className="py-10 page-container">
@@ -88,22 +66,10 @@ const MoviePage = () => {
           <div className="w-10 h-10 border-4 border-primary border-t-transparent border-t-4 rounded-full animate-spin mx-auto"></div>
         )}
         <div className="grid grid-cols-4 gap-10">
-          {!loading &&
+          {loading &&
             movies &&
             movies.length > 0 &&
-            movies.map((item) => <MovieCart key={item.id} item={item} />)}
-        </div>
-        <div className="mt-10">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
-            className="pagination"
-          />
+            movies.map((item) => <MovieCart key={item} item={item} />)}
         </div>
       </div>
     </>

@@ -24,9 +24,7 @@ const MovieCart = ({ item }) => {
           <span>{new Date(release_date).getFullYear()}</span>
           <span>{vote_average}</span>
         </div>
-        <Button bgColor="secondary" onClick={(e) => hanldeClickNavigate(e)}>
-          Watch now2
-        </Button>
+        <Button bgColor="secondary">Watch now2</Button>
         {/* <button
           onClick={(e) => hanldeClickNavigate(e)}
           className="py-3 px-6 bg-primary capitalize rounded-lg text-center w-full mt-auto"

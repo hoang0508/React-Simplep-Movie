@@ -45,12 +45,12 @@ const MoviePage = () => {
   // useFfetch Phân trang pagination
   useEffect(() => {
     if (!data || !data.total_pages) return null;
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
+    setPageCount(Math.ceil(data.total_pages / itemsPerPage));
   }, [data, itemOffset]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_results;
+    const newOffset = (event.selected * itemsPerPage) % data.total_pages;
     setItemOffset(newOffset);
     // setNextPage
     setNextPage(event.selected + 1);

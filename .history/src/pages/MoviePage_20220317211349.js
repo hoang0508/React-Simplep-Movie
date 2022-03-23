@@ -3,13 +3,8 @@ import useSWR from "swr";
 import MovieCart from "../components/movie/MovieCart";
 import { apiKey, fetcher } from "../config";
 import useDebounce from "../hooks/useDebounce";
-import ReactPaginate from "react-paginate";
-const itemsPerPage = 20;
-const MoviePage = () => {
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
 
-  // Page
+const MoviePage = () => {
   const [nextpage, setNextPage] = useState(1);
   // input Filter
   const [filter, setFilter] = useState("");
@@ -35,26 +30,11 @@ const MoviePage = () => {
       );
     } else {
       setUrl(
-        `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d&page=${nextpage}`
+        `https://api.themoviedb.org/3/movie/popular?api_key=6dc4483c77b849ecbf002144ee64855d`
       );
     }
   }, [filterDebounce, nextpage]);
-  // Kiểm tra có data hay không ?
-  // if (!data) return null;
   const movies = data?.results || [];
-  // useFfetch Phân trang pagination
-  useEffect(() => {
-    if (!data || !data.total_pages) return null;
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
-  }, [data, itemOffset]);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_results;
-    setItemOffset(newOffset);
-    // setNextPage
-    setNextPage(event.selected + 1);
-  };
   return (
     <>
       <div className="py-10 page-container">
@@ -93,17 +73,42 @@ const MoviePage = () => {
             movies.length > 0 &&
             movies.map((item) => <MovieCart key={item.id} item={item} />)}
         </div>
-        <div className="mt-10">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
-            className="pagination"
-          />
+        <div className="flex items-center justify-center mt-10 gap-x-5">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </span>
+          <span className="cursor-pointer inline-block py-2 px-4 lead leading-none bg-white text-slate-900">
+            1
+          </span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </span>
         </div>
       </div>
     </>
