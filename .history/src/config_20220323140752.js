@@ -15,5 +15,5 @@ export const tmdbAPI = {
   getMovieSearch: (query, page) =>
     `${tmdbEndpointSearch}?api_key=${apiKey}&query=${query}&page=${page}`, // API Searhc Movie
   imagesOriginal: (url) => `https://image.tmdb.org/t/p/original/${url}`, // img original
-  images500: (poster_path) => `https://image.tmdb.org/t/p/w500/${poster_path}`, // img 500
+  images500: (poster_path) => `https://image.tmdb.org/t/p/w500/${poster_path}`,
 };

@@ -7,13 +7,11 @@ import MovieCart from "./MovieCart";
 // https://api.themoviedb.org/3/movie/now_playing?api_key=6dc4483c77b849ecbf002144ee64855d
 const MovieList = ({ type = "now_playing" }) => {
   const [movies, setMovies] = useState([]);
-  // Call API
   const { data } = useSWR(
     // Custom tối ưu API , Ở file config
     tmdbAPI.getMovieList(type),
     fetcher
   );
-  // UseEffect
   useEffect(() => {
     setMovies(data?.results);
   }, [data]);

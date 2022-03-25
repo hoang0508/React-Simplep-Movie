@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import MovieCart from "components/movie/MovieCart";
-import { fetcher, tmdbAPI } from "config";
-import useDebounce from "hooks/useDebounce";
+import MovieCart from "../components/movie/MovieCart";
+import { apiKey, fetcher, tmdbAPI } from "../config";
+import useDebounce from "../hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 const itemsPerPage = 20;
 const MoviePage = () => {
@@ -32,8 +32,7 @@ const MoviePage = () => {
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
-        // `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}&page=${nextpage}`
-        tmdbAPI.getMovieSearch(filterDebounce, nextpage)
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}&page=${nextpage}`
       );
     } else {
       setUrl(

@@ -26,7 +26,7 @@ const MovieDetailsPage = () => {
         <div
           className="w-full h-full bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url(${tmdbAPI.imagesOriginal(backdrop_path)})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
           }}
         ></div>
       </div>

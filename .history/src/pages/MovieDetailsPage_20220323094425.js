@@ -26,14 +26,13 @@ const MovieDetailsPage = () => {
         <div
           className="w-full h-full bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url(${tmdbAPI.imagesOriginal(backdrop_path)})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
           }}
         ></div>
       </div>
       <div className="w-full h-[400px] max-w-[800px] mx-auto -mt-[200px] relative z-10 pb-10">
         <img
-          // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-          src={tmdbAPI.imagesOriginal(poster_path)}
+          src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt=""
           className="w-full h-full object-cover rounded-xl"
         />
@@ -83,8 +82,7 @@ const MovieCredits = () => {
           cast.slice(0, 4).map((item) => (
             <div className="cart-item" key={item.id}>
               <img
-                // src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
-                src={tmdbAPI.imagesOriginal(item.profile_path)}
+                src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
                 className="w-full h-[350px] object-cover rounded-lg mb-3"
                 alt=""
               />
@@ -101,7 +99,7 @@ const MovieVideos = () => {
   const { movieId } = useParams();
   const { data } = useSWR(
     //
-    tmdbAPI.getMovieMeta(movieId, "videos"),
+    tmdbAPI.getMovieVideos(movieId),
     fetcher
   );
   if (!data) return null;
@@ -140,7 +138,7 @@ const MovieSimilar = () => {
   const { movieId } = useParams();
   const { data } = useSWR(
     // `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
-    tmdbAPI.getMovieMeta(movieId, "similar"),
+    tmdbAPI.getMovieSimilar(movieId),
     fetcher
   );
   if (!data) return null;
